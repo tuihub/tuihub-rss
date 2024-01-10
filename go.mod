@@ -9,7 +9,7 @@ require (
 	github.com/muzhou233/go-favicon v0.1.1
 	github.com/stretchr/testify v1.8.4
 	github.com/tuihub/protos v0.3.0
-	github.com/tuihub/tuihub-go v0.0.2
+	github.com/tuihub/tuihub-go v0.0.3
 	google.golang.org/protobuf v1.32.0
 )
 
