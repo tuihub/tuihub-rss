@@ -253,8 +253,8 @@ github.com/temoto/robotstxt v1.1.2 h1:W2pOjSJ6SWvldyEuiFXNxz3xZ8aiWX5LbfDiOFd7Fx
 github.com/temoto/robotstxt v1.1.2/go.mod h1:+1AmkuG3IYkh1kv0d2qEB9Le88ehNO0zwOr3ujewlOo=
 github.com/tuihub/protos v0.3.0 h1:DyZMmLjayRbG4dDRWuUDWwqIQXkHDEGFlX2o+Bfs9gM=
 github.com/tuihub/protos v0.3.0/go.mod h1:oEU+QANr6l/E9StiEBW0W0vrnfGSjsQAVQGbFHPZOPc=
-github.com/tuihub/tuihub-go v0.0.3 h1:SpczyZUrv0MgbYmFZfoiExuJfoB9mbSIdNd6DTvdQts=
-github.com/tuihub/tuihub-go v0.0.3/go.mod h1:iex84u09QcC60wf5k+YzOWH5Z5NJjj30xghnVnNwHw8=
+github.com/tuihub/tuihub-go v0.0.5 h1:7eE7A5PBFkvJi8ht1xNJzjMe/LnCG/M2SHz41r6bypM=
+github.com/tuihub/tuihub-go v0.0.5/go.mod h1:iex84u09QcC60wf5k+YzOWH5Z5NJjj30xghnVnNwHw8=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 golang.org/x/crypto v0.0.0-20180904163835-0709b304e793/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=

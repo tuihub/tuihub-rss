@@ -2,10 +2,12 @@ package main
 
 import (
 	"context"
+	"os"
 
 	porter "github.com/tuihub/protos/pkg/librarian/porter/v1"
 	librarian "github.com/tuihub/protos/pkg/librarian/v1"
 	"github.com/tuihub/tuihub-go"
+	"github.com/tuihub/tuihub-go/logger"
 	"github.com/tuihub/tuihub-rss/internal"
 )
 
@@ -28,11 +30,6 @@ func main() {
 			},
 			SupportedNotifyDestinations: nil,
 		},
-		Server: tuihub.ServerConfig{
-			Network: "",
-			Addr:    "",
-			Timeout: nil,
-		},
 	}
 	server, err := tuihub.NewPorter(
 		context.Background(),
@@ -40,9 +37,11 @@ func main() {
 		internal.NewHandler(),
 	)
 	if err != nil {
-		return
+		logger.Error(err)
+		os.Exit(1)
 	}
 	if err = server.Run(); err != nil {
-		return
+		logger.Error(err)
+		os.Exit(1)
 	}
 }
