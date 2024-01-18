@@ -8,8 +8,8 @@ require (
 	github.com/mmcdole/gofeed v1.2.1
 	github.com/muzhou233/go-favicon v0.1.1
 	github.com/stretchr/testify v1.8.4
-	github.com/tuihub/protos v0.3.0
-	github.com/tuihub/tuihub-go v0.0.5
+	github.com/tuihub/protos v0.3.7
+	github.com/tuihub/tuihub-go v0.0.6
 	google.golang.org/protobuf v1.32.0
 )
 
