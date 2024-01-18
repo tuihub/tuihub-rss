@@ -38,6 +38,10 @@ func (h Handler) PullAccountAppRelation(ctx context.Context, req *porter.PullAcc
 	return nil, errors.BadRequest("not supported", "")
 }
 
+func (h Handler) SearchApp(ctx context.Context, request *porter.SearchAppRequest) (*porter.SearchAppResponse, error) {
+	return nil, errors.BadRequest("not supported", "")
+}
+
 func (h Handler) PullFeed(ctx context.Context, req *porter.PullFeedRequest) (
 	*porter.PullFeedResponse, error) {
 	data, err := h.rss.Get(req.GetChannelId())
