@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3](https://github.com/tuihub/tuihub-rss/compare/v0.0.2...v0.0.3) (2024-01-18)
+
+
+### Bug Fixes
+
+* handler ([2b732e6](https://github.com/tuihub/tuihub-rss/commit/2b732e687f9cabc56388fe92f4233ddf1c1c15b9))
+* upgrade sdk & fix nil pointer error ([b7ea1ea](https://github.com/tuihub/tuihub-rss/commit/b7ea1ea9d5996df4423217393b7b22c30c03190b))
+
 ## [0.0.2](https://github.com/tuihub/tuihub-rss/compare/v0.0.1...v0.0.2) (2024-01-10)
 
 
