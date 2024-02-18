@@ -6,40 +6,22 @@ import (
 	porter "github.com/tuihub/protos/pkg/librarian/porter/v1"
 	"github.com/tuihub/tuihub-rss/internal/converter/generated"
 
-	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/mmcdole/gofeed"
 	"github.com/muzhou233/go-favicon"
 )
 
 type Handler struct {
+	porter.UnimplementedLibrarianPorterServiceServer
 	rss     RSS
 	favicon *favicon.Finder
 }
 
 func NewHandler() *Handler {
 	return &Handler{
+		porter.UnimplementedLibrarianPorterServiceServer{},
 		NewRSS(),
 		favicon.New(favicon.IgnoreManifest),
 	}
-}
-
-func (h Handler) PullAccount(ctx context.Context, req *porter.PullAccountRequest) (
-	*porter.PullAccountResponse, error) {
-	return nil, errors.BadRequest("not supported", "")
-}
-
-func (h Handler) PullApp(ctx context.Context, req *porter.PullAppRequest) (
-	*porter.PullAppResponse, error) {
-	return nil, errors.BadRequest("not supported", "")
-}
-
-func (h Handler) PullAccountAppRelation(ctx context.Context, req *porter.PullAccountAppRelationRequest) (
-	*porter.PullAccountAppRelationResponse, error) {
-	return nil, errors.BadRequest("not supported", "")
-}
-
-func (h Handler) SearchApp(ctx context.Context, request *porter.SearchAppRequest) (*porter.SearchAppResponse, error) {
-	return nil, errors.BadRequest("not supported", "")
 }
 
 func (h Handler) PullFeed(ctx context.Context, req *porter.PullFeedRequest) (
@@ -68,9 +50,4 @@ func (h Handler) PullFeed(ctx context.Context, req *porter.PullFeedRequest) (
 	converter := &generated.ConverterImpl{}
 	res := converter.ToPBFeed(feed)
 	return &porter.PullFeedResponse{Data: res}, nil
-}
-
-func (h Handler) PushFeedItems(ctx context.Context, req *porter.PushFeedItemsRequest) (
-	*porter.PushFeedItemsResponse, error) {
-	return nil, errors.BadRequest("not supported", "")
 }

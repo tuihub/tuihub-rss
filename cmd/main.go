@@ -23,8 +23,8 @@ func main() {
 		Version:    version,
 		GlobalName: "github.com/tuihub/tuihub-rss",
 		FeatureSummary: &porter.PorterFeatureSummary{
-			SupportedAccounts:   nil,
-			SupportedAppSources: nil,
+			SupportedAccounts:       nil,
+			SupportedAppInfoSources: nil,
 			SupportedFeedSources: []string{
 				tuihub.WellKnownToString(librarian.WellKnownFeedSource_WELL_KNOWN_FEED_SOURCE_RSS),
 			},
