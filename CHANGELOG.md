@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.4](https://github.com/tuihub/tuihub-rss/compare/v0.0.3...v0.0.4) (2024-02-26)
+
+
+### Features
+
+* upgrade sdk version to v0.0.7 ([e4e2ff5](https://github.com/tuihub/tuihub-rss/commit/e4e2ff53e6963267183c17c5645117318d95b711))
+* upgrade sdk version to v0.0.8 ([762f5d5](https://github.com/tuihub/tuihub-rss/commit/762f5d54dcc60e84f5ab803b11fee2a22328ece1))
+
 ## [0.0.3](https://github.com/tuihub/tuihub-rss/compare/v0.0.2...v0.0.3) (2024-01-18)
 
 
