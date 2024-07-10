@@ -23,12 +23,19 @@ func main() {
 		Version:    version,
 		GlobalName: "github.com/tuihub/tuihub-rss",
 		FeatureSummary: &porter.PorterFeatureSummary{
-			SupportedAccounts:       nil,
-			SupportedAppInfoSources: nil,
-			SupportedFeedSources: []string{
-				tuihub.WellKnownToString(librarian.WellKnownFeedSource_WELL_KNOWN_FEED_SOURCE_RSS),
+			AccountPlatforms: nil,
+			AppInfoSources:   nil,
+			FeedSources: []*librarian.FeatureFlag{
+				{
+					Id:               tuihub.WellKnownToString(librarian.WellKnownFeedSource_WELL_KNOWN_FEED_SOURCE_RSS),
+					Region:           "",
+					Name:             "RSS",
+					Description:      "",
+					ConfigJsonSchema: "",
+				},
 			},
-			SupportedNotifyDestinations: nil,
+			NotifyDestinations: nil,
+			FeedItemActions:    nil,
 		},
 	}
 	server, err := tuihub.NewPorter(
