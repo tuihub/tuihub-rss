@@ -2,6 +2,7 @@ package internal
 
 import (
 	"context"
+	"encoding/json"
 
 	porter "github.com/tuihub/protos/pkg/librarian/porter/v1"
 	"github.com/tuihub/tuihub-rss/internal/converter/generated"
@@ -26,7 +27,12 @@ func NewHandler() *Handler {
 
 func (h Handler) PullFeed(ctx context.Context, req *porter.PullFeedRequest) (
 	*porter.PullFeedResponse, error) {
-	data, err := h.rss.Get(req.GetChannelId())
+	var config PullRSSConfig
+	err := json.Unmarshal([]byte(req.GetSource().GetConfigJson()), &config)
+	if err != nil {
+		return nil, err
+	}
+	data, err := h.rss.Get(config.URL)
 	if err != nil {
 		return nil, err
 	}

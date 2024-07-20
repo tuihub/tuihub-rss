@@ -31,7 +31,7 @@ func main() {
 					Region:           "",
 					Name:             "RSS",
 					Description:      "",
-					ConfigJsonSchema: "",
+					ConfigJsonSchema: tuihub.MustReflectJSONSchema(new(internal.PullRSSConfig)),
 				},
 			},
 			NotifyDestinations: nil,
