@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.6](https://github.com/tuihub/tuihub-rss/compare/v0.0.5...v0.0.6) (2024-08-08)
+
+
+### Features
+
+* upgrade goverter to v1.5.0 ([aa6f98d](https://github.com/tuihub/tuihub-rss/commit/aa6f98d229aabeec049f288af06474ac5b0c253b))
+* upgrade sdk version to v0.0.12 ([3ff5bfa](https://github.com/tuihub/tuihub-rss/commit/3ff5bfa468e338ef152d6691af74efd7fbc1f20f))
+* upgrade sdk version to v0.0.13 ([dacc5b8](https://github.com/tuihub/tuihub-rss/commit/dacc5b8428bd6f47f93ed54d7eb0013758d0917f))
+
 ## [0.0.5](https://github.com/tuihub/tuihub-rss/compare/v0.0.4...v0.0.5) (2024-07-10)
 
 
