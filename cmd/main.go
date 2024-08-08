@@ -18,25 +18,28 @@ var (
 )
 
 func main() {
-	config := tuihub.PorterConfig{
-		Name:       "tuihub-rss",
-		Version:    version,
+	config := &porter.GetPorterInformationResponse{
+		BinarySummary: &librarian.PorterBinarySummary{
+			SourceCodeAddress: "https://github.com/tuihub/tuihub-rss",
+			BuildVersion:      version,
+			BuildDate:         "",
+			Name:              "tuihub-rss",
+			Version:           version,
+			Description:       "",
+		},
 		GlobalName: "github.com/tuihub/tuihub-rss",
-		FeatureSummary: &porter.PorterFeatureSummary{
-			AccountPlatforms: nil,
-			AppInfoSources:   nil,
+		Region:     "",
+		FeatureSummary: &porter.PorterFeatureSummary{ //nolint:exhaustruct // no need
 			FeedSources: []*librarian.FeatureFlag{
 				{
 					Id:               tuihub.WellKnownToString(librarian.WellKnownFeedSource_WELL_KNOWN_FEED_SOURCE_RSS),
-					Region:           "",
 					Name:             "RSS",
 					Description:      "",
 					ConfigJsonSchema: tuihub.MustReflectJSONSchema(new(internal.PullRSSConfig)),
 				},
 			},
-			NotifyDestinations: nil,
-			FeedItemActions:    nil,
 		},
+		ContextJsonSchema: nil,
 	}
 	server, err := tuihub.NewPorter(
 		context.Background(),

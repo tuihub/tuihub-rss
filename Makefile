@@ -2,7 +2,7 @@ SHELL:=/bin/bash
 LINT_FILE_TAG=v0.2.0
 LINT_FILE_URL=https://raw.githubusercontent.com/tuihub/librarian/$(LINT_FILE_TAG)/.golangci.yml
 
-GOLANG_CROSS_VERSION ?= v1.20.7
+GOLANG_CROSS_VERSION ?= latest
 PACKAGE_NAME := github.com/tuihub/tuihub-rss
 VERSION=$(shell git describe --tags --always)
 PROTO_VERSION=$(shell go list -m -f '{{.Version}}' github.com/tuihub/protos)
