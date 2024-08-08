@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 
 	porter "github.com/tuihub/protos/pkg/librarian/porter/v1"
-	"github.com/tuihub/tuihub-rss/internal/converter/generated"
+	"github.com/tuihub/tuihub-rss/internal/converter"
 
 	"github.com/mmcdole/gofeed"
 	"github.com/muzhou233/go-favicon"
@@ -53,7 +53,6 @@ func (h Handler) PullFeed(ctx context.Context, req *porter.PullFeedRequest) (
 			}
 		}
 	}
-	converter := &generated.ConverterImpl{}
 	res := converter.ToPBFeed(feed)
 	return &porter.PullFeedResponse{Data: res}, nil
 }
