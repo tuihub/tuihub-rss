@@ -17,6 +17,12 @@ var (
 	version string
 )
 
+const (
+	rssServerURLPrefix = "RSS_SERVER_URL_PREFIX"
+	rssServerHost      = "RSS_SERVER_HOST"
+	rssServerPort      = "RSS_SERVER_PORT"
+)
+
 func main() {
 	config := &porter.GetPorterInformationResponse{
 		BinarySummary: &librarian.PorterBinarySummary{
@@ -29,7 +35,7 @@ func main() {
 		},
 		GlobalName: "github.com/tuihub/tuihub-rss",
 		Region:     "",
-		FeatureSummary: &porter.PorterFeatureSummary{ //nolint:exhaustruct // no need
+		FeatureSummary: &librarian.FeatureSummary{ //nolint:exhaustruct // no need
 			FeedSources: []*librarian.FeatureFlag{
 				{
 					Id:               tuihub.WellKnownToString(librarian.WellKnownFeedSource_WELL_KNOWN_FEED_SOURCE_RSS),
@@ -38,19 +44,43 @@ func main() {
 					ConfigJsonSchema: tuihub.MustReflectJSONSchema(new(internal.PullRSSConfig)),
 				},
 			},
+			NotifyDestinations: []*librarian.FeatureFlag{
+				{
+					Id:               tuihub.WellKnownToString(librarian.WellKnownFeedSource_WELL_KNOWN_FEED_SOURCE_RSS),
+					Name:             "RSS",
+					Description:      "",
+					ConfigJsonSchema: tuihub.MustReflectJSONSchema(new(internal.ServeRSSConfig)),
+					Extra: map[string]string{
+						"URLPrefix": os.Getenv(rssServerURLPrefix),
+					},
+				},
+			},
 		},
 		ContextJsonSchema: nil,
 	}
-	server, err := tuihub.NewPorter(
+	porterServer, err := tuihub.NewPorter(
 		context.Background(),
 		config,
 		internal.NewHandler(),
+		tuihub.WithAsUser(),
 	)
 	if err != nil {
 		logger.Error(err)
 		os.Exit(1)
 	}
-	if err = server.Run(); err != nil {
+	rssServer, err := internal.NewServer(porterServer)
+	if err != nil {
+		logger.Error(err)
+		os.Exit(1)
+	}
+	go func() {
+		err = rssServer.Run(os.Getenv(rssServerHost) + ":" + os.Getenv(rssServerPort))
+		if err != nil {
+			logger.Error(err)
+			os.Exit(1)
+		}
+	}()
+	if err = porterServer.Run(); err != nil {
 		logger.Error(err)
 		os.Exit(1)
 	}

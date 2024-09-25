@@ -40,19 +40,31 @@ func (h Handler) PullFeed(ctx context.Context, req *porter.PullFeedRequest) (
 	if err != nil {
 		return nil, err
 	}
-	if len(feed.Link) > 0 {
-		if icons, err1 := h.favicon.Find(feed.Link); err1 == nil && len(icons) > 0 {
-			for _, icon := range icons {
-				if icon.Height > 0 && icon.Width > 0 {
-					feed.Image = &gofeed.Image{
-						URL:   icons[0].URL,
-						Title: "",
-					}
-					break
-				}
-			}
-		}
+	if feed.Image == nil && len(feed.Link) > 0 {
+		h.findFavicon(feed)
 	}
 	res := converter.ToPBFeed(feed)
 	return &porter.PullFeedResponse{Data: res}, nil
+}
+
+func (h Handler) findFavicon(feed *gofeed.Feed) {
+	icons, err := h.favicon.Find(feed.Link)
+	if err != nil || len(icons) == 0 {
+		return
+	}
+	for _, icon := range icons {
+		if icon.Height > 0 && icon.Width > 0 {
+			feed.Image = &gofeed.Image{
+				URL:   icon.URL,
+				Title: "",
+			}
+			break
+		}
+	}
+	if feed.Image == nil {
+		feed.Image = &gofeed.Image{
+			URL:   icons[0].URL,
+			Title: "",
+		}
+	}
 }

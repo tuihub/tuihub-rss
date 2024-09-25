@@ -7,11 +7,12 @@ toolchain go1.21.12
 require (
 	github.com/go-kratos/kratos/v2 v2.8.0
 	github.com/gocolly/colly/v2 v2.1.1-0.20231020184023-3c987f1982ed
+	github.com/gorilla/feeds v1.2.0
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/muzhou233/go-favicon v0.1.1
 	github.com/stretchr/testify v1.8.4
-	github.com/tuihub/protos v0.4.20
-	github.com/tuihub/tuihub-go v0.0.13
+	github.com/tuihub/protos v0.4.23
+	github.com/tuihub/tuihub-go v0.0.15
 	google.golang.org/protobuf v1.34.2
 )
 
@@ -70,6 +71,6 @@ require (
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240701130421-f6361c86f094 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240701130421-f6361c86f094 // indirect
-	google.golang.org/grpc v1.65.0 // indirect
+	google.golang.org/grpc v1.66.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

@@ -4,10 +4,56 @@
 package converter
 
 import (
+	feeds "github.com/gorilla/feeds"
 	gofeed "github.com/mmcdole/gofeed"
 	v1 "github.com/tuihub/protos/pkg/librarian/v1"
 )
 
+func FromPBFeed(source *v1.Feed) *feeds.Feed {
+	var pFeedsFeed *feeds.Feed
+	if source != nil {
+		var feedsFeed feeds.Feed
+		feedsFeed.Title = (*source).Title
+		feedsFeed.Description = (*source).Description
+		feedsFeed.Items = FromPBFeedItems((*source).Items)
+		feedsFeed.Image = FromPBFeedImage((*source).Image)
+		pFeedsFeed = &feedsFeed
+	}
+	return pFeedsFeed
+}
+func FromPBFeedImage(source *v1.FeedImage) *feeds.Image {
+	var pFeedsImage *feeds.Image
+	if source != nil {
+		var feedsImage feeds.Image
+		feedsImage.Url = (*source).Url
+		feedsImage.Title = (*source).Title
+		pFeedsImage = &feedsImage
+	}
+	return pFeedsImage
+}
+func FromPBFeedItem(source *v1.FeedItem) *feeds.Item {
+	var pFeedsItem *feeds.Item
+	if source != nil {
+		var feedsItem feeds.Item
+		feedsItem.Title = (*source).Title
+		feedsItem.Description = (*source).Description
+		feedsItem.Updated = FromPBTime((*source).UpdatedParsed)
+		feedsItem.Created = FromPBTime((*source).PublishedParsed)
+		feedsItem.Content = (*source).Content
+		pFeedsItem = &feedsItem
+	}
+	return pFeedsItem
+}
+func FromPBFeedItems(source []*v1.FeedItem) []*feeds.Item {
+	var pFeedsItemList []*feeds.Item
+	if source != nil {
+		pFeedsItemList = make([]*feeds.Item, len(source))
+		for i := 0; i < len(source); i++ {
+			pFeedsItemList[i] = FromPBFeedItem(source[i])
+		}
+	}
+	return pFeedsItemList
+}
 func ToPBFeed(source *gofeed.Feed) *v1.Feed {
 	var pV1Feed *v1.Feed
 	if source != nil {
@@ -22,7 +68,7 @@ func ToPBFeed(source *gofeed.Feed) *v1.Feed {
 			}
 		}
 		v1Feed.Language = (*source).Language
-		v1Feed.Image = ToPBFeedImage((*source).Image)
+		v1Feed.Image = pGofeedImageToPV1FeedImage((*source).Image)
 		if (*source).Authors != nil {
 			v1Feed.Authors = make([]*v1.FeedPerson, len((*source).Authors))
 			for j := 0; j < len((*source).Authors); j++ {
@@ -32,27 +78,6 @@ func ToPBFeed(source *gofeed.Feed) *v1.Feed {
 		pV1Feed = &v1Feed
 	}
 	return pV1Feed
-}
-func ToPBFeedEnclosure(source *gofeed.Enclosure) *v1.FeedEnclosure {
-	var pV1FeedEnclosure *v1.FeedEnclosure
-	if source != nil {
-		var v1FeedEnclosure v1.FeedEnclosure
-		v1FeedEnclosure.Url = (*source).URL
-		v1FeedEnclosure.Length = (*source).Length
-		v1FeedEnclosure.Type = (*source).Type
-		pV1FeedEnclosure = &v1FeedEnclosure
-	}
-	return pV1FeedEnclosure
-}
-func ToPBFeedImage(source *gofeed.Image) *v1.FeedImage {
-	var pV1FeedImage *v1.FeedImage
-	if source != nil {
-		var v1FeedImage v1.FeedImage
-		v1FeedImage.Url = (*source).URL
-		v1FeedImage.Title = (*source).Title
-		pV1FeedImage = &v1FeedImage
-	}
-	return pV1FeedImage
 }
 func ToPBFeedItem(source *gofeed.Item) *v1.FeedItem {
 	var pV1FeedItem *v1.FeedItem
@@ -69,7 +94,7 @@ func ToPBFeedItem(source *gofeed.Item) *v1.FeedItem {
 		v1FeedItem.Content = (*source).Content
 		v1FeedItem.Guid = (*source).GUID
 		v1FeedItem.Link = (*source).Link
-		v1FeedItem.Image = ToPBFeedImage((*source).Image)
+		v1FeedItem.Image = pGofeedImageToPV1FeedImage((*source).Image)
 		v1FeedItem.Published = (*source).Published
 		v1FeedItem.PublishedParsed = ToPBTime((*source).PublishedParsed)
 		v1FeedItem.Updated = (*source).Updated
@@ -77,12 +102,33 @@ func ToPBFeedItem(source *gofeed.Item) *v1.FeedItem {
 		if (*source).Enclosures != nil {
 			v1FeedItem.Enclosures = make([]*v1.FeedEnclosure, len((*source).Enclosures))
 			for j := 0; j < len((*source).Enclosures); j++ {
-				v1FeedItem.Enclosures[j] = ToPBFeedEnclosure((*source).Enclosures[j])
+				v1FeedItem.Enclosures[j] = pGofeedEnclosureToPV1FeedEnclosure((*source).Enclosures[j])
 			}
 		}
 		pV1FeedItem = &v1FeedItem
 	}
 	return pV1FeedItem
+}
+func pGofeedEnclosureToPV1FeedEnclosure(source *gofeed.Enclosure) *v1.FeedEnclosure {
+	var pV1FeedEnclosure *v1.FeedEnclosure
+	if source != nil {
+		var v1FeedEnclosure v1.FeedEnclosure
+		v1FeedEnclosure.Url = (*source).URL
+		v1FeedEnclosure.Length = (*source).Length
+		v1FeedEnclosure.Type = (*source).Type
+		pV1FeedEnclosure = &v1FeedEnclosure
+	}
+	return pV1FeedEnclosure
+}
+func pGofeedImageToPV1FeedImage(source *gofeed.Image) *v1.FeedImage {
+	var pV1FeedImage *v1.FeedImage
+	if source != nil {
+		var v1FeedImage v1.FeedImage
+		v1FeedImage.Url = (*source).URL
+		v1FeedImage.Title = (*source).Title
+		pV1FeedImage = &v1FeedImage
+	}
+	return pV1FeedImage
 }
 func pGofeedPersonToPV1FeedPerson(source *gofeed.Person) *v1.FeedPerson {
 	var pV1FeedPerson *v1.FeedPerson
